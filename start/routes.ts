@@ -41,6 +41,7 @@ Route.get('dashboard', async ({ auth }) => {
 })
 
 
-Route.resource('/users', 'UsersController')
+Route.resource('/users', 'UsersController').apiOnly()
+
 
 
