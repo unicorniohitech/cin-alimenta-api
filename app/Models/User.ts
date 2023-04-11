@@ -11,10 +11,31 @@ export default class User extends BaseModel {
   public name: string
 
   @column()
-  public username: string
+  public email: string
 
   @column()
-  public email: string
+  public telephone: string
+
+  @column()
+  public address: string
+
+  @column()
+  public street: string
+
+  @column()
+  public number: string
+
+  @column()
+  public neighborhood: string
+
+  @column()
+  public postcode: string
+
+  @column()
+  public complement: string
+
+  @column()
+  public cpf: string
 
   @column({ serializeAs: null })
   public password: string
@@ -25,6 +46,7 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
   @beforeSave()
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
