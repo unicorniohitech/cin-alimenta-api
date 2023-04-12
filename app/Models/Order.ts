@@ -1,8 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
-
-
 export default class Order extends BaseModel {
   @column({ isPrimary: true })
   public id: number
