@@ -25,11 +25,6 @@ export default class Order extends BaseModel {
   })
   public posts: HasMany<typeof Order>
 
-
-
-
-
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
