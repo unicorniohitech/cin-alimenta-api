@@ -30,20 +30,20 @@ export default class ProductsController {
   }
 
   public async show({ params }: HttpContextContract) {
-    const product = await Product.findOrFail(params.product_name)
+    const product = await Product.findOrFail(params.name)
     return product
   }
 
   public async update({ params, request }: HttpContextContract) {
-    const product = await Product.findOrFail(params.product_name)
-    const data = request.only(['product_id', 'user_id', 'product_name', 'product_price', 'product_description', 'product_category', 'product_observation'])
+    const product = await Product.findOrFail(params.name)
+    const data = request.only(['id', 'user_id', 'name', 'price', 'description', 'category', 'observation'])
     product.merge(data)
     await product.save()
     return product
   }
 
   public async destroy({ params }: HttpContextContract) {
-    const product = await Product.findOrFail(params.product_name)
+    const product = await Product.findOrFail(params.name)
     await product.delete()
     return { message: 'Produto excluído com sucesso' }
   }
