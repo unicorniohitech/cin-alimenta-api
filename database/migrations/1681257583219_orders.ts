@@ -7,15 +7,12 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('list_product')
-      table.integer('clienteId').unsigned().notNullable().references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
-      table.string('Name_client')
-      table.float('value_total_order')
-      table.string('status_order')
+      table.string('products')
+      table.integer('user_id').unsigned().notNullable().references('id').inTable('users').onUpdate('CASCADE')
+      table.string('user_name')
+      table.float('total_price')
+      table.string('status')
 
-      table
-        .dateTime('time_order', { useTz: true })
-        .defaultTo(this.now())
 
 
       /**

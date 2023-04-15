@@ -1,25 +1,29 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+
+
 export default class Order extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+
   @belongsTo(() => User, {
-    foreignKey: 'clientId',
+    foreignKey: 'user_id',
   })
   public users: BelongsTo<typeof User>
 
-  @column.date()
-  public time_order: DateTime
+  @column()
+  public total_price: number
+
 
   @column()
-  public status_order: string
+  public status: string
 
   @column()
-  public Name_client: string
+  public user_name: string
 
   @hasMany(() => Order, {
-    serializeAs: 'list_product'
+    serializeAs: 'products'
   })
   public posts: HasMany<typeof Order>
 
