@@ -3,25 +3,25 @@ import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Product extends BaseModel {
   @column({ isPrimary: true })
-  public product_id: number
+  public id: number
 
   @column()
   public user_id: number
 
   @column()
-  public product_name: string
+  public name: string
 
   @column()
-  public product_price: number
+  public price: number
 
   @column()
-  public product_description: string
+  public description: string
 
   @column()
-  public product_category: string
+  public category: string
 
   @column()
-  public product_observation: string
+  public observation: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

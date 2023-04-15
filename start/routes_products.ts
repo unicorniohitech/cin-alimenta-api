@@ -24,31 +24,31 @@ Route.get('/products', async () => {
     return 'products'
   })
 
-  Route.get('/products/:product_name', async ({ params }) => {
-    const { product_name} = params
-    return `Exibindo o produto ${product_name}`
+  Route.get('/products/:name', async ({ params }) => {
+    const {name} = params
+    return `Exibindo o produto: ${name}`
   })
 
   Route.post('/products', async ({ request }) => {
-    const data = request.only(['product_name', 'product_price', 'product_description'])
-    return `Criando novo produto com nome ${data.product_name}, preço ${data.product_price} e descrição ${data.product_description}`
+    const data = request.only(['name', 'price', 'description'])
+    return `Criando novo produto com nome ${data.name}, preço ${data.price} e descrição ${data.description}`
   })
 
-  Route.put('/products/product_name', async ({ params, request }) => {
-    const { product_name } = params
-    const data = request.only(['product_name', 'product_price', 'product_description'])
-    return `Atualizando o produto ${product_name} para nome  ${data.product_name}, preço ${data.product_price} e descrição ${data.product_description}`
+  Route.put('/products/:name', async ({ params, request }) => {
+    const {name} = params
+    const data = request.only(['name', 'price', 'description'])
+    return `Atualizando o produto ${name} para nome  ${data.name}, preço ${data.price} e descrição ${data.description}`
 })
 
-  Route.put('/products/:product_name', async ({ params, request }) => {
-    const { product_name } = params
-    const data = request.only(['product_name', 'product_price', 'product_description'])
-    return `Atualizando o produto ${product_name} para nome  ${data.product_name}, preço ${data.product_price} e descrição ${data.product_description}`
+  Route.put('/products/:name', async ({ params, request }) => {
+    const {name} = params
+    const data = request.only(['name', 'price', 'description'])
+    return `Atualizando o produto ${name} para nome  ${data.name}, preço ${data.price} e descrição ${data.description}`
 })
 
-  Route.delete('/products/:product_name', async ({ params }) => {
-    const { product_name } = params
-    return `Excluindo o produto ${product_name}`
+  Route.delete('/products/:name', async ({ params }) => {
+    const {name} = params
+    return `Excluindo o produto ${name}`
   })
   
   Route.resource('/products', 'ProductsController').apiOnly()

@@ -9,22 +9,22 @@ export default class ProductsController {
 
   public async store({ request }: HttpContextContract) {
     const data = request.only([
-     'product_id',
+     'id',
      'user_id',
-     'product_name',
-     'product_price',
-     'product_description',
-     'product_category',
-     'product_observation'
+     'name',
+     'price',
+     'description',
+     'category',
+     'observation'
     ])
     const product = await Product.create({
-        product_id: data.product_id,
+        id: data.id,
         user_id: data.user_id,
-        product_name: data.product_name,
-        product_price: data.product_price,
-        product_description: data.product_description,
-        product_category: data.product_category,
-        product_observation: data.product_observation
+        name: data.name,
+        price: data.price,
+        description: data.description,
+        category: data.category,
+        observation: data.observation
     })
     return product
   }
