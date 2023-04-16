@@ -39,4 +39,4 @@ Route.get('dashboard', async ({ auth }) => {
   console.log(auth.use('api').user!)
 })
 
-Route.resource('/users', 'UsersController')
+Route.resource('/users', 'UsersController').apiOnly()
