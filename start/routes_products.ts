@@ -21,34 +21,34 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/products', async () => {
-    return 'products'
-  })
-
-  Route.get('/products/:name', async ({ params }) => {
-    const {name} = params
-    return `Exibindo o produto: ${name}`
-  })
-
-  Route.post('/products', async ({ request }) => {
-    const data = request.only(['name', 'price', 'description'])
-    return `Criando novo produto com nome ${data.name}, preço ${data.price} e descrição ${data.description}`
-  })
-
-  Route.put('/products/:name', async ({ params, request }) => {
-    const {name} = params
-    const data = request.only(['name', 'price', 'description'])
-    return `Atualizando o produto ${name} para nome  ${data.name}, preço ${data.price} e descrição ${data.description}`
+  return 'products'
 })
 
-  Route.put('/products/:name', async ({ params, request }) => {
-    const {name} = params
-    const data = request.only(['name', 'price', 'description'])
-    return `Atualizando o produto ${name} para nome  ${data.name}, preço ${data.price} e descrição ${data.description}`
+Route.get('/products/:name', async ({ params }) => {
+  const { name } = params
+  return `Exibindo o produto: ${name}`
 })
 
-  Route.delete('/products/:name', async ({ params }) => {
-    const {name} = params
-    return `Excluindo o produto ${name}`
-  })
-  
-  Route.resource('/products', 'ProductsController').apiOnly()
+Route.post('/products', async ({ request }) => {
+  const data = request.only(['name', 'price', 'description'])
+  return `Criando novo produto com nome ${data.name}, preço ${data.price} e descrição ${data.description}`
+})
+
+Route.put('/products/:name', async ({ params, request }) => {
+  const { name } = params
+  const data = request.only(['name', 'price', 'description'])
+  return `Atualizando o produto ${name} para nome  ${data.name}, preço ${data.price} e descrição ${data.description}`
+})
+
+Route.put('/products/:name', async ({ params, request }) => {
+  const { name } = params
+  const data = request.only(['name', 'price', 'description'])
+  return `Atualizando o produto ${name} para nome  ${data.name}, preço ${data.price} e descrição ${data.description}`
+})
+
+Route.delete('/products/:name', async ({ params }) => {
+  const { name } = params
+  return `Excluindo o produto ${name}`
+})
+
+Route.resource('/products', 'ProductsController').apiOnly()

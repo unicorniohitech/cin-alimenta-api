@@ -20,7 +20,6 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-
 Route.get('/', async () => {
   return { hello: 'oi' }
 })
@@ -40,7 +39,4 @@ Route.get('dashboard', async ({ auth }) => {
   console.log(auth.use('api').user!)
 })
 
-
 Route.resource('/users', 'UsersController')
-
-

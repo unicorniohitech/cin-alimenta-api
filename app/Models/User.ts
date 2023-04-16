@@ -2,7 +2,6 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, beforeSave } from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash'
 
-
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -18,7 +17,6 @@ export default class User extends BaseModel {
 
   @column({ serializeAs: null })
   public password: string
-
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

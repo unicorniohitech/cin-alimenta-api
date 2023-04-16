@@ -1,10 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 
-
-
 export default class UsersController {
-  public async index({ }: HttpContextContract) {
+  public async index({}: HttpContextContract) {
     const user = await User.all()
     return user
   }
@@ -20,7 +18,6 @@ export default class UsersController {
 
     console.log(user.$isPersisted)
     return user
-
   }
 
   public async show({ request }: HttpContextContract) {
@@ -28,7 +25,6 @@ export default class UsersController {
     const user = await User.find(userId)
 
     return user
-
   }
 
   public async update({ request }: HttpContextContract) {
@@ -38,7 +34,6 @@ export default class UsersController {
     await user.merge(body).save()
 
     return user
-
   }
 
   public async destroy({ request }: HttpContextContract) {
@@ -46,6 +41,5 @@ export default class UsersController {
     const user = await User.findOrFail(userId)
     await user.delete()
     return true
-
   }
 }
