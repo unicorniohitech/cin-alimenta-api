@@ -3,13 +3,14 @@ import Product from 'App/Models/Product'
 
 export default class ProductsController {
   public async index({}: HttpContextContract) {
+    // const test = 'test'
+    // const products = await Product.query().where('name', test)
     const products = await Product.all()
     return products
   }
 
-  public async store({ request }: HttpContextContract) {
+  public async create({ request }: HttpContextContract) {
     const data = request.only([
-      'id',
       'user_id',
       'name',
       'price',
@@ -18,7 +19,6 @@ export default class ProductsController {
       'observation',
     ])
     const product = await Product.create({
-      id: data.id,
       user_id: data.user_id,
       name: data.name,
       price: data.price,
@@ -26,16 +26,17 @@ export default class ProductsController {
       category: data.category,
       observation: data.observation,
     })
+
     return product
   }
 
   public async show({ params }: HttpContextContract) {
-    const product = await Product.findOrFail(params.name)
+    const product = await Product.findOrFail(params.id)
     return product
   }
 
   public async update({ params, request }: HttpContextContract) {
-    const product = await Product.findOrFail(params.name)
+    const product = await Product.findOrFail(params.id)
     const data = request.only([
       'id',
       'user_id',
@@ -51,7 +52,8 @@ export default class ProductsController {
   }
 
   public async destroy({ params }: HttpContextContract) {
-    const product = await Product.findOrFail(params.name)
+    const product = await Product.query().where({ deleted_at: !null, id: params.id })
+
     await product.delete()
     return { message: 'Produto excluído com sucesso' }
   }
