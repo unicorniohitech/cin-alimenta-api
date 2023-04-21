@@ -8,7 +8,7 @@ export default class Order extends BaseModel {
   public id: number
 
   @column()
-  public user_id: string
+  public user_id: number
 
   @column()
   public total_price: number
