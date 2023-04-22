@@ -52,8 +52,10 @@ export default class ProductsController {
   }
 
   public async destroy({ params }: HttpContextContract) {
-    const product = await Product.query().where({ deleted_at: !null, id: params.id })
-
+    const product = await Product.query()
+      .whereNotNull('deleted_at')
+      .where('id', params.id)
+      .firstOrFail()
     await product.delete()
     return { message: 'Produto excluído com sucesso' }
   }
