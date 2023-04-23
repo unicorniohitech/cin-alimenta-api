@@ -25,6 +25,9 @@ export default class Product extends BaseModel {
   @column()
   public observation: string
 
+  @column()
+  public activity: string
+
   @manyToMany(() => Order)
   public orders: ManyToMany<typeof Order>
 
@@ -36,4 +39,7 @@ export default class Product extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @column.dateTime({ serializeAs: null })
+  public deletedAt: DateTime
 }

@@ -55,10 +55,9 @@ export default class UsersController {
     return user
   }
 
-  public async destroy({ request }: HttpContextContract) {
-    const userId = request.param('id')
-    const user = await User.findOrFail(userId)
+  public async destroy({ params }: HttpContextContract) {
+    const user = await User.query().whereNotNull('deleted_at').where('id', params.id).firstOrFail()
     await user.delete()
-    return true
+    return { message: 'Usuário excluído com sucesso' }
   }
 }
