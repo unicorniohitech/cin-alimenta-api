@@ -9,7 +9,7 @@ export default class ProductsController {
     return products
   }
 
-  public async create({ request }: HttpContextContract) {
+  public async store({ request }: HttpContextContract) {
     const data = request.only([
       'user_id',
       'name',

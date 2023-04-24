@@ -40,12 +40,6 @@ Route.put('/products/:name', async ({ params, request }) => {
   return `Atualizando o produto ${name} para nome  ${data.name}, preço ${data.price} e descrição ${data.description}`
 })
 
-Route.put('/products/:name', async ({ params, request }) => {
-  const { name } = params
-  const data = request.only(['name', 'price', 'description'])
-  return `Atualizando o produto ${name} para nome  ${data.name}, preço ${data.price} e descrição ${data.description}`
-})
-
 Route.delete('/products/:name', async ({ params }) => {
   const { name } = params
   return `Excluindo o produto ${name}`
