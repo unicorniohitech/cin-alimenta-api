@@ -19,10 +19,10 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import Database from '@ioc:Adonis/Lucid/Database'
 
-Route.get('/hello', async () => {
-  return Database.from('users').select('*')
+Route.get('/', () => {
+  // eslint-disable-next-line prettier/prettier
+  return { status: 'online'}
 })
 
 Route.post('/login', 'AuthController.login')
@@ -33,5 +33,7 @@ Route.get('dashboard', async ({ auth }) => {
 })
 
 Route.resource('/users', 'UsersController').apiOnly()
+Route.resource('/products', 'ProductsController').apiOnly()
+Route.resource('/orders', 'OrdersController').apiOnly()
 
 Route.group(() => {}).middleware('auth: api')
