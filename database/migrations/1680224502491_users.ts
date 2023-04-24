@@ -9,7 +9,7 @@ export default class Users extends BaseSchema {
       table.string('name')
       table.string('email')
       table.string('document')
-      table.string('risingDate')
+      table.string('rising_date')
       table.string('password')
       table.string('telephone')
       table.string('address')

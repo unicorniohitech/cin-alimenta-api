@@ -13,7 +13,7 @@ export default class User extends BaseModel {
   public document: string
 
   @column()
-  public risingDate: string
+  public rising_date: string
 
   @column()
   public role: string

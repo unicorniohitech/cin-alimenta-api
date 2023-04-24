@@ -27,7 +27,7 @@ export default class UsersController {
     }
     const user = await User.create({
       name: body.name,
-      risingDate: body.risingDate,
+      rising_date: body.rising_date,
       telephone: body.telephone,
       email: body.email,
       role: body.role,
@@ -56,7 +56,7 @@ export default class UsersController {
   }
 
   public async destroy({ params }: HttpContextContract) {
-    const user = await User.query().whereNotNull('deleted_at').where('id', params.id).firstOrFail()
+    const user = await User.findOrFail(params.id)
     await user.delete()
     return { message: 'Usuário excluído com sucesso' }
   }
