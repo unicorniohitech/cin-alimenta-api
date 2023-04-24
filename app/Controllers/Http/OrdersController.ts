@@ -11,12 +11,6 @@ export default class OrdersController {
 
   public async store({ request, response }) {
     try {
-      request = {
-        name: 'Product Four',
-        description: 'Lorem ipsum dolor sit amet. Phasellus suscipit mattis elit.',
-        price: 17.2,
-        products: [{ id: 1, product_qtd: 3 }],
-      }
       // Obter os dados do pedido do corpo da requisição
       const { products, ...data } = request.only(['user_id', 'total_price', 'status', 'products'])
 
@@ -58,12 +52,6 @@ export default class OrdersController {
 
   public async cancel({ params, response, request }) {
     try {
-      request = {
-        name: 'Product Four',
-        description: 'Lorem ipsum dolor sit amet. Phasellus suscipit mattis elit.',
-        price: 17.2,
-        products: [{ id: 1, product_qtd: 3 }],
-      }
       // Lógica para cancelar o pedido com base no ID do pedido
       const order = await Order.findOrFail(params.id)
       order.status = 'cancelado'

@@ -14,7 +14,7 @@ export default class UsersController {
       'password',
       'address',
       'document',
-      'risingDate',
+      'rising_date',
       'telephone',
       'role',
     ])
@@ -27,7 +27,7 @@ export default class UsersController {
     }
     const user = await User.create({
       name: body.name,
-      risingDate: body.risingDate,
+      rising_date: body.rising_date,
       telephone: body.telephone,
       email: body.email,
       role: body.role,
@@ -59,6 +59,6 @@ export default class UsersController {
     const userId = request.param('id')
     const user = await User.findOrFail(userId)
     await user.delete()
-    return true
+    return { message: 'Usuário excluído com sucesso' }
   }
 }

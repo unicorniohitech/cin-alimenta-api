@@ -10,7 +10,7 @@ export default class ProductsController {
   }
 
   public async store({ request }: HttpContextContract) {
-    const data = request.only([
+    const body = request.only([
       'user_id',
       'name',
       'price',
@@ -19,12 +19,12 @@ export default class ProductsController {
       'observation',
     ])
     const product = await Product.create({
-      user_id: data.user_id,
-      name: data.name,
-      price: data.price,
-      description: data.description,
-      category: data.category,
-      observation: data.observation,
+      user_id: body.user_id,
+      name: body.name,
+      price: body.price,
+      description: body.description,
+      category: body.category,
+      observation: body.observation,
     })
 
     return product
@@ -37,7 +37,7 @@ export default class ProductsController {
 
   public async update({ params, request }: HttpContextContract) {
     const product = await Product.findOrFail(params.id)
-    const data = request.only([
+    const body = request.only([
       'id',
       'user_id',
       'name',
@@ -46,7 +46,7 @@ export default class ProductsController {
       'category',
       'observation',
     ])
-    product.merge(data)
+    product.merge(body)
     await product.save()
     return product
   }
