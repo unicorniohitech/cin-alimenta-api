@@ -8,10 +8,10 @@ export default class OrdersController {
     return orders
   }
 
-  public async create({ request, response }) {
+  public async store({ request, response }) {
     try {
       // Obter os dados do pedido do corpo da requisição
-      const { products, ...data } = request.only(['user_id', 'total_price', 'status', 'products'])
+      const { products, ...data } = request.only(['total_price', 'status', 'products'])
 
       // Criar o pedido no banco de dados
       const order = await Order.create(data)

@@ -1,27 +1,39 @@
-import BaseSchema from '@ioc:Adonis/Lucid/Schema'
+/*
+|--------------------------------------------------------------------------
+| Routes
+|--------------------------------------------------------------------------
+|
+| This file is dedicated for defining HTTP routes. A single file is enough
+| for majority of projects, however you can define routes in different
+| files and just make sure to import them inside this file. For example
+|
+| Define routes in following two files
+| ├── start/routes/cart.ts
+| ├── start/routes/customer.ts
+|
+| and then import them inside `start/routes.ts` as follows
+|
+| import './routes/cart'
+| import './routes/customer'
+|
+*/
 
-export default class Orders extends BaseSchema {
-  protected tableName = 'orders'
+import Route from '@ioc:Adonis/Core/Route'
 
-  public async up() {
-    this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
-      table.string('products')
-      table.integer('user_id').unsigned().notNullable().references('users.id').onUpdate('CASCADE')
-      table.string('user_name')
-      table.float('total_price')
-      table.string('status')
+Route.get('/', () => {
+  // eslint-disable-next-line prettier/prettier
+  return { status: 'online'}
+})
 
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
-      table.timestamp('created_at', { useTz: true })
-      table.timestamp('updated_at', { useTz: true })
-      table.timestamp('deleted_at', { useTz: true })
-    })
-  }
+Route.post('/login', 'AuthController.login')
 
-  public async down() {
-    this.schema.dropTable(this.tableName)
-  }
-}
+Route.get('dashboard', async ({ auth }) => {
+  await auth.use('api').authenticate()
+  console.log(auth.use('api').user!)
+})
+
+Route.resource('/users', 'UsersController').apiOnly()
+Route.resource('/products', 'ProductsController').apiOnly()
+Route.resource('/orders', 'OrdersController').apiOnly()
+
+Route.group(() => {}).middleware('auth: api')
