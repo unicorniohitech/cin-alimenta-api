@@ -9,7 +9,7 @@ export default class ProductsController {
     return products
   }
 
-  public async create({ request }: HttpContextContract) {
+  public async store({ request }: HttpContextContract) {
     const data = request.only([
       'user_id',
       'name',
@@ -52,7 +52,7 @@ export default class ProductsController {
   }
 
   public async destroy({ params }: HttpContextContract) {
-    const product = await Product.query().where({ deleted_at: !null, id: params.id })
+    const product = await Product.query().where({ deleted_at: !null, id: params.id }).firstOrFail()
 
     await product.delete()
     return { message: 'Produto excluído com sucesso' }
