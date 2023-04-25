@@ -17,6 +17,7 @@ export default class ProductOrders extends BaseSchema {
       table.timestamp('deleted_at', { useTz: true })
     })
   }
+
   public async down() {
     this.schema.dropTable(this.tableName)
   }

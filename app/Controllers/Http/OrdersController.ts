@@ -47,7 +47,7 @@ export default class OrdersController {
 
   public async update({ params, request }: HttpContextContract) {
     const product = await Order.findOrFail(params.id)
-    const data = request.only(['id', 'user_id', 'total_price', 'status', 'products'])
+    const data = request.only(['user_id', 'total_price', 'status', 'products'])
     product.merge(data)
     await product.save()
     return product
