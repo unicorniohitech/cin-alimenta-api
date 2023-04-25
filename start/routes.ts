@@ -25,15 +25,25 @@ Route.get('/', () => {
   return { status: 'online'}
 })
 
-Route.post('/login', 'AuthController.login')
-
 Route.get('dashboard', async ({ auth }) => {
   await auth.use('api').authenticate()
   console.log(auth.use('api').user!)
+})
+
+Route.post('login', async ({ auth, request, response }) => {
+  const email = request.input('email')
+  const password = request.input('password')
+
+  try {
+    const token = await auth.use('api').attempt(email, password)
+    return token
+  } catch {
+    return response.unauthorized('Invalid credentials')
+  }
 })
 
 Route.resource('/users', 'UsersController').apiOnly()
 Route.resource('/products', 'ProductsController').apiOnly()
 Route.resource('/orders', 'OrdersController').apiOnly()
 
-Route.group(() => {}).middleware('auth: api')
+Route.group(() => {}).middleware('auth:api')

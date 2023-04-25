@@ -53,8 +53,8 @@ const authConfig: AuthConfig = {
       */
       tokenProvider: {
         type: 'api',
-        driver: 'redis',
-        redisConnection: 'local',
+        driver: 'database',
+        table: 'api_tokens',
         foreignKey: 'user_id',
       },
 
@@ -103,7 +103,7 @@ const authConfig: AuthConfig = {
         | that time.
         |
         */
-        model: () => import('App/Models/AuthUser'),
+        model: () => import('App/Models/User'),
       },
     },
   },
