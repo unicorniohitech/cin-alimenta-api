@@ -22,7 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', () => {
   // eslint-disable-next-line prettier/prettier
-  return { status: 'online'}
+  return { status: 'online' }
 })
 
 Route.resource('/users', 'UsersController').apiOnly()

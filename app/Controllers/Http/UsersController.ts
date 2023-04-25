@@ -14,7 +14,7 @@ export default class UsersController {
       'password',
       'address',
       'document',
-      'risingDate',
+      'rising_date',
       'telephone',
       'role',
     ])

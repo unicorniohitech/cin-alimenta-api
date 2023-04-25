@@ -1,14 +1,14 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Order extends BaseSchema {
-  protected tableName = 'orders'
+export default class ProductOrders extends BaseSchema {
+  protected tableName = 'order_product'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
-      table.integer('user_id').unsigned().notNullable().references('users.id').onUpdate('CASCADE')
-      table.float('total_price')
-      table.string('status')
+      table.integer('order_id').unsigned().references('orders.id')
+      table.integer('product_id').unsigned().references('products.id')
+      table.integer('product_qtd')
+      table.unique(['order_id', 'product_id'])
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
@@ -17,7 +17,6 @@ export default class Order extends BaseSchema {
       table.timestamp('deleted_at', { useTz: true })
     })
   }
-
   public async down() {
     this.schema.dropTable(this.tableName)
   }
