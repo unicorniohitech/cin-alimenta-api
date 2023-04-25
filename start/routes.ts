@@ -22,7 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', () => {
   // eslint-disable-next-line prettier/prettier
-  return { status: 'online'}
+  return { hello: 'world'}
 })
 
 Route.get('dashboard', async ({ auth }) => {
