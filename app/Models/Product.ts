@@ -25,6 +25,9 @@ export default class Product extends BaseModel {
   @column()
   public observation: string
 
+  @column()
+  public activity: string
+
   @manyToMany(() => Order)
   public orders: ManyToMany<typeof Order>
 

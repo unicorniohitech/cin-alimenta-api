@@ -19,9 +19,7 @@ export default class Order extends BaseModel {
   @manyToMany(() => Product)
   public products: ManyToMany<typeof Product>
 
-  @hasMany(() => User, {
-    foreignKey: 'user_id',
-  })
+  @hasMany(() => User)
   public users: HasMany<typeof User>
 
   @column.dateTime({ autoCreate: true })
