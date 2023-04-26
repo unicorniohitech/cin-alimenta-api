@@ -1,4 +1,3 @@
-import { Response } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Order from 'App/Models/Order'
 
@@ -48,8 +47,13 @@ export default class OrdersController {
     }
   }
   public async show({ params }: HttpContextContract) {
-    const order = await Order.query().where('id', params.id).preload('user').preload('products')
-    // Relacionamento entre Order e User (assumindo que o nome do relacionamento é "user")
+    const order = await Order.query()
+      .where('id', params.id)
+      .preload('user')
+      .preload('products', (productsQuery) => {
+        productsQuery.preload('restaurant')
+      })
+    // Relacionamento entre O)rder e User (assumindo que o nome do relacionamento é "user")
     return order
   } //catch (error) {
   // Caso ocorra um erro durante a busca do pedido
