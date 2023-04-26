@@ -3,11 +3,7 @@ import Order from 'App/Models/Order'
 
 export default class OrdersController {
   public async index({}: HttpContextContract) {
-    const orders = await Order.query()
-      .preload('user')
-      .preload('products', (productsQuery) => {
-        productsQuery.preload('restaurant')
-      })
+    const orders = await Order.query().preload('user').preload('products')
     //  const { id } = request.only(['id', 'user_id', 'total_price', 'status', 'products'])
     // const orders = await Order.all()
     return orders
@@ -32,14 +28,12 @@ export default class OrdersController {
       })
 
       // Adicionar os produtos ao pedido
-      await products.map((product) => {
-        order.related('products').attach({
-          [product.product_id]: {
-            product_qtd: product.product_qtd,
-          },
+      await Promise.all(
+        products.map(async (product) => {
+          await order.related('products').attach(product.id)
         })
-      })
-
+      )
+      await order.load('products')
       // Retorne o pedido criado com sucesso
       return order
     } catch (error) {
@@ -50,16 +44,35 @@ export default class OrdersController {
       })
     }
   }
-  public async show({ params }: HttpContextContract) {
-    const order = await Order.query()
-      .where('id', params.id)
-      .preload('user')
-      .preload('products', (productsQuery) => {
-        productsQuery.preload('restaurant')
+  public async show({ params, response }: HttpContextContract) {
+    try {
+      const order = await Order.query()
+        .preload('products', (query) => {
+          query.select('products.id', 'products.name', 'products.price')
+          query.select('order_product.product_qtd as pivot_product_qtd')
+        })
+        .where('id', params.id)
+        .firstOrFail()
+      const formattedProducts = order.products.map((product) => {
+        return {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          qtd: product.$extras.pivot_product_qtd,
+        }
       })
-    // Relacionamento entre O)rder e User (assumindo que o nome do relacionamento é "user")
-    return order
-  } //catch (error) {
+      return response.json({
+        id: order.id,
+        user_id: order.user_id,
+        total_price: order.total_price,
+        status: order.status,
+        products: formattedProducts,
+      })
+    } catch (error) {
+      return response.status(500).json({ message: error.message })
+    }
+  }
+
   // Caso ocorra um erro durante a busca do pedido
   //return response.status(500).json({ message: error })
   //}
