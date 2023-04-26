@@ -2,11 +2,34 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Order from 'App/Models/Order'
 
 export default class OrdersController {
-  public async index({}: HttpContextContract) {
-    const orders = await Order.query().preload('user').preload('products')
-    //  const { id } = request.only(['id', 'user_id', 'total_price', 'status', 'products'])
-    // const orders = await Order.all()
-    return orders
+  public async index({ response }: HttpContextContract) {
+    try {
+      const orders = await Order.query().preload('products', (query) => {
+        query.select('products.id', 'products.name', 'products.price')
+        query.select('order_product.product_qtd as pivot_product_qtd')
+      })
+
+      const formattedOrders = orders.map((order) => {
+        const formattedProducts = order.products.map((product) => {
+          return {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            qtd: product.$extras.pivot_product_qtd,
+          }
+        })
+        return {
+          id: order.id,
+          user_id: order.user_id,
+          total_price: order.total_price,
+          status: order.status,
+          products: formattedProducts,
+        }
+      })
+      return response.json(formattedOrders)
+    } catch (error) {
+      return response.status(500).json({ message: error.message })
+    }
   }
 
   public async store({ request, response }) {
