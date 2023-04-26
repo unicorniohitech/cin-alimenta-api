@@ -3,7 +3,11 @@ import Order from 'App/Models/Order'
 
 export default class OrdersController {
   public async index({}: HttpContextContract) {
-    const orders = await Order.query().preload('user').preload('products')
+    const orders = await Order.query()
+      .preload('user')
+      .preload('products', (productsQuery) => {
+        productsQuery.preload('restaurant')
+      })
     //  const { id } = request.only(['id', 'user_id', 'total_price', 'status', 'products'])
     // const orders = await Order.all()
     return orders
