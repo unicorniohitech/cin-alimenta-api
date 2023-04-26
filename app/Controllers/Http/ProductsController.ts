@@ -18,7 +18,9 @@ export default class ProductsController {
       'category',
       'observation',
       'activity',
+      'role',
     ])
+
     const product = await Product.create({
       user_id: body.user_id,
       name: body.name,
@@ -28,12 +30,6 @@ export default class ProductsController {
       observation: body.observation,
       activity: body.activity,
     })
-
-    return product
-  }
-
-  public async show({ params }: HttpContextContract) {
-    const product = await Product.findOrFail(params.id)
     return product
   }
 
