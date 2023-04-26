@@ -17,7 +17,7 @@ export default class ProductsController {
       'description',
       'category',
       'observation',
-      'activity',
+      'activated',
     ])
     const product = await Product.create({
       user_id: body.user_id,
@@ -26,7 +26,7 @@ export default class ProductsController {
       description: body.description,
       category: body.category,
       observation: body.observation,
-      activity: body.activity,
+      activated: body.activated,
     })
 
     return product
