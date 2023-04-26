@@ -57,10 +57,9 @@
   "dependencies": {
     "-": "^0.0.1",
     "@adonisjs/auth": "^8.2.3",
-    "@adonisjs/cli": "^5.0.9",
+    "@adonisjs/cli": "^4.0.13",
     "@adonisjs/core": "^5.9.0",
     "@adonisjs/lucid": "^18.3.0",
-    "@adonisjs/redis": "^7.3.2",
     "@adonisjs/repl": "^3.1.11",
     "adonis-lucid-soft-deletes": "^1.4.3",
     "luxon": "^3.3.0",

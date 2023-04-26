@@ -1,5 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  BelongsTo,
+  belongsTo,
+  column,
+  HasMany,
+  hasMany,
+  manyToMany,
+  ManyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import Order from './Order'
 
@@ -25,11 +34,17 @@ export default class Product extends BaseModel {
   @column()
   public observation: string
 
+  @column()
+  public activated: string
+
   @manyToMany(() => Order)
   public orders: ManyToMany<typeof Order>
 
   @hasMany(() => User)
   public users: HasMany<typeof User>
+
+  @belongsTo(() => User, { localKey: 'id', foreignKey: 'user_id' })
+  public restaurant: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

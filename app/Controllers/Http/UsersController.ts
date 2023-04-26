@@ -18,6 +18,7 @@ export default class UsersController {
       'telephone',
       'role',
     ])
+
     const address = {
       street: body.address.street,
       number: body.address.number,
@@ -30,6 +31,7 @@ export default class UsersController {
       rising_date: body.rising_date,
       telephone: body.telephone,
       email: body.email,
+      document: body.document,
       role: body.role,
       password: body.password,
       address: JSON.stringify(address),
@@ -48,16 +50,24 @@ export default class UsersController {
 
   public async update({ request }: HttpContextContract) {
     const userId = request.param('id')
-    const body = request.only(['name', 'document', 'email', 'telephone', 'password', 'address'])
+    const body = request.only([
+      'name',
+      'email',
+      'password',
+      'address',
+      'document',
+      'rising_date',
+      'telephone',
+      'role',
+    ])
     const user = await User.findOrFail(userId)
     await user.merge(body).save()
 
     return user
   }
 
-  public async destroy({ request }: HttpContextContract) {
-    const userId = request.param('id')
-    const user = await User.findOrFail(userId)
+  public async destroy({ params }: HttpContextContract) {
+    const user = await User.findOrFail(params.id)
     await user.delete()
     return { message: 'Usuário excluído com sucesso' }
   }

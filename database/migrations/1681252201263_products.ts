@@ -12,6 +12,7 @@ export default class Products extends BaseSchema {
       table.string('description')
       table.string('category')
       table.string('observation')
+      table.string('activated')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
