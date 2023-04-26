@@ -22,7 +22,7 @@
     "@adonisjs/core",
     "@adonisjs/lucid",
     "@adonisjs/auth",
-    "@adonisjs/redis",
+   
     "adonis-lucid-soft-deletes"
   ],
   "aceProviders": [
