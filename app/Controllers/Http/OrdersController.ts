@@ -1,3 +1,4 @@
+import { Response } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Order from 'App/Models/Order'
 
@@ -27,7 +28,13 @@ export default class OrdersController {
       })
 
       // Adicionar os produtos ao pedido
-      await order.related('products').attach(products)
+      await products.map((product) => {
+        order.related('products').attach({
+          [product.product_id]: {
+            product_qtd: product.product_qtd,
+          },
+        })
+      })
 
       // Retorne o pedido criado com sucesso
       return order
@@ -39,11 +46,14 @@ export default class OrdersController {
       })
     }
   }
-
   public async show({ params }: HttpContextContract) {
-    const product = await Order.findOrFail(params.id)
-    return product
-  }
+    const order = await Order.query().where('id', params.id).preload('user').preload('products')
+    // Relacionamento entre Order e User (assumindo que o nome do relacionamento é "user")
+    return order
+  } //catch (error) {
+  // Caso ocorra um erro durante a busca do pedido
+  //return response.status(500).json({ message: error })
+  //}
 
   public async update({ params, request }: HttpContextContract) {
     const product = await Order.findOrFail(params.id)

@@ -30,6 +30,7 @@ export default class UsersController {
       rising_date: body.rising_date,
       telephone: body.telephone,
       email: body.email,
+      document: body.document,
       role: body.role,
       password: body.password,
       address: JSON.stringify(address),

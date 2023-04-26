@@ -1,5 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, HasMany, hasMany, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  HasMany,
+  hasMany,
+  column,
+  manyToMany,
+  ManyToMany,
+  belongsTo,
+  BelongsTo,
+} from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import Product from './Product'
 
@@ -19,8 +28,13 @@ export default class Order extends BaseModel {
   @manyToMany(() => Product)
   public products: ManyToMany<typeof Product>
 
-  @hasMany(() => User)
-  public users: HasMany<typeof User>
+  // @hasMany(() => User, {
+  //   foreignKey: 'user_id',
+  // })
+  // public users: HasMany<typeof User>
+
+  @belongsTo(() => User, { localKey: 'id', foreignKey: 'user_id' })
+  public user: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
