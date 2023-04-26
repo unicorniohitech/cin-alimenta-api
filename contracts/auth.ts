@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * Contract source: https://git.io/JOdz5
  *
@@ -5,7 +6,7 @@
  * file.
  */
 
-import AuthUser from 'App/Models/User'
+import User from 'App/Models/User'
 
 declare module '@ioc:Adonis/Addons/Auth' {
   /*
@@ -34,8 +35,8 @@ declare module '@ioc:Adonis/Addons/Auth' {
     |
     */
     user: {
-      implementation: LucidProviderContract<typeof AuthUser>
-      config: LucidProviderConfig<typeof AuthUser>
+      implementation: LucidProviderContract<typeof User>
+      config: LucidProviderConfig<typeof User>
     }
   }
 

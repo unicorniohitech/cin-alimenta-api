@@ -6,7 +6,7 @@ export default class Order extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('user_id').unsigned().notNullable().references('users.id').onUpdate('CASCADE')
+      table.integer('user_id').unsigned().notNullable().references('id').inTable('users')
       table.float('total_price')
       table.string('status')
       /**
